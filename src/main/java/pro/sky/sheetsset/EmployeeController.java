@@ -20,19 +20,19 @@ public class EmployeeController {
     public String addEmployee(@RequestParam("firstName") String firstName,
                                      @RequestParam("lastName") String lastName) {
 
-        return "firstName: " + firstName + " , " + "lastName: " + lastName;
+        return "Добавлен новый сотрудник - " + "firstName: " + firstName + " , " + "lastName: " + lastName;
     }
     @GetMapping(path = "/employee/remove")
     public String removeEmployee(@RequestParam("firstName") String firstName,
                               @RequestParam("lastName") String lastName) {
 
-        return "firstName: " + firstName + " , " + "lastName: " + lastName;
+        return "Сотрудник удален - " + " firstName: " + firstName + " , " + "lastName: " + lastName;
     }
     @GetMapping(path = "/employee/find")
     public String findEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName) {
 
-        return "firstName: " + firstName + " , " + "lastName: " + lastName;
+        return "Сотрудник найден - " + " firstName: " + firstName + " , " + "lastName: " + lastName;
     }
 
 
