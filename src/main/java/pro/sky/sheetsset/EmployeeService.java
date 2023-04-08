@@ -12,16 +12,18 @@ public class EmployeeService {
         this.employees = new Employee[10]; // объявление длины массива
     }
 
-    public void addEmployee(String firstName, String lastName) throws EmployeeStoragelsFullException,
-            EmployeeAlreadyAddedException {
-        for (int i = 0; i < employees.length; i++) {
+    public void addEmployee(String firstName, String lastName) throws EmployeeStoragelsFullException, EmployeeAlreadyAddedException {
+
+        if (counter >= employees.length) {
+            throw new EmployeeAlreadyAddedException("Сотрудника добавить нельзя, закончилось место");
+        }
+        Employee newEmployee = new Employee(firstName, lastName);
+        employees[counter++] = newEmployee;
+
+        for (int i = 0; i < counter - 2; i++) {
             if (employees[i].getFirstName().equals(firstName) && employees[i].getLastName().equals(lastName)) {
-                throw new EmployeeAlreadyAddedException("Такой сотрудник уже есть");
-            } else if (counter >= employees.length) {
-                throw new EmployeeStoragelsFullException("Нельзя добавить сотрудника, закончилось место");
+                throw new EmployeeStoragelsFullException("Такой сотрудник уже есть");
             }
-            Employee newEmployee = new Employee();
-            employees[counter++] = newEmployee;
         }
     }
 
