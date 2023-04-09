@@ -1,39 +1,44 @@
 package pro.sky.sheetsset;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-    @GetMapping
-    public String hello() {
-        return "Hello";
+
+    @GetMapping(path = "/add")
+    public Employee add(@RequestParam String firstName,
+                        @RequestParam String lastName) {
+        return employeeService.addEmployee(firstName, lastName);
     }
 
-    @GetMapping(path = "/employee/add")
-    public String addEmployee(@RequestParam("firstName") String firstName,
-                                     @RequestParam("lastName") String lastName) {
-
-        return "Добавлен новый сотрудник - " + "firstName: " + firstName + " , " + "lastName: " + lastName;
+    @GetMapping(path = "/remove")
+    public Employee remove(@RequestParam String firstName,
+                           @RequestParam String lastName) {
+//
+        return employeeService.removeEmployee(firstName, lastName);
     }
-    @GetMapping(path = "/employee/remove")
-    public String removeEmployee(@RequestParam("firstName") String firstName,
-                              @RequestParam("lastName") String lastName) {
 
-        return "Сотрудник удален - " + " firstName: " + firstName + " , " + "lastName: " + lastName;
-    }
-    @GetMapping(path = "/employee/find")
-    public String findEmployee(@RequestParam("firstName") String firstName,
+    @GetMapping(path = "/find")
+    public Employee findEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName) {
-
-        return "Сотрудник найден - " + " firstName: " + firstName + " , " + "lastName: " + lastName;
+        return employeeService.getEmployee(firstName, lastName);
     }
 
+    @GetMapping(path = "/all")
+    public Collection<Employee> allList() {
+        return employeeService.getEmployees();
+    }
 
 }
+
